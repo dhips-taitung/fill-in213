@@ -3,192 +3,51 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>2026 馬到成功版-教學組系統</title>
-
+<title>2026 教學組系統</title>
 <style>
-body{
-  font-family:"Microsoft JhengHei",sans-serif;
-  margin:0;
-  padding:0;
-  background:linear-gradient(135deg,#7b0000,#b30000,#ffcc00);
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  color:#fff;
-}
+  body { font-family: "Microsoft JhengHei", sans-serif; display: flex; flex-direction: column; align-items: center; background-color: transparent; margin: 0; padding: 0; }
+  .link-list, .class-list { display: flex; gap: 15px; flex-wrap: wrap; justify-content: center; margin-top: 20px; }
+  .btn-link { 
+    padding: 12px 20px; background: #fff; border: 2px solid #4285f4; color: #4285f4;
+    border-radius: 5px; cursor: pointer; font-weight: bold; transition: 0.3s; text-align:center;
+  }
+  .btn-link:hover { background: #4285f4; color: white; }
 
-/* 標題 */
-.main-title{
-  margin-top:30px;
-  font-size:28px;
-  font-weight:bold;
-  letter-spacing:3px;
-  text-shadow:0 0 10px rgba(255,255,255,0.6);
-}
-
-/* 區塊容器 */
-.section-box{
-  background:rgba(255,255,255,0.95);
-  color:#333;
-  width:95%;
-  max-width:1100px;
-  margin-top:30px;
-  padding:25px;
-  border-radius:15px;
-  box-shadow:0 10px 30px rgba(0,0,0,0.4);
-}
-
-/* 主頁按鈕 */
-.link-list{
-  display:flex;
-  gap:20px;
-  justify-content:center;
-  flex-wrap:wrap;
-}
-
-.btn-link{
-  padding:12px 25px;
-  background:linear-gradient(45deg,#b30000,#ff0000);
-  border:none;
-  color:#fff;
-  border-radius:30px;
-  cursor:pointer;
-  font-weight:bold;
-  transition:0.3s;
-  box-shadow:0 4px 10px rgba(0,0,0,0.3);
-}
-
-.btn-link:hover{
-  transform:translateY(-3px);
-  background:linear-gradient(45deg,#ffcc00,#ff9900);
-  color:#7b0000;
-}
-
-/* 年級區塊 */
-.grade-group{
-  margin-top:25px;
-}
-
-.grade-title{
-  font-size:20px;
-  font-weight:bold;
-  margin-bottom:10px;
-  padding-bottom:5px;
-  border-bottom:2px solid #b30000;
-}
-
-/* 班級按鈕 */
-.class-grid{
-  display:grid;
-  grid-template-columns:repeat(4,1fr);
-  gap:15px;
-}
-
-.class-btn{
-  background:#fff;
-  border:2px solid #b30000;
-  color:#b30000;
-  padding:12px;
-  border-radius:10px;
-  text-align:center;
-  cursor:pointer;
-  font-weight:bold;
-  transition:0.3s;
-}
-
-.class-btn:hover{
-  background:#b30000;
-  color:#fff;
-}
-
-/* 返回 */
-.back-btn{
-  margin-top:25px;
-  text-align:center;
-}
-
-/* 登入彈窗 */
-#login-overlay{
-  display:none;
-  position:fixed;
-  top:0;left:0;
-  width:100%;
-  height:100%;
-  background:rgba(0,0,0,0.7);
-  z-index:999;
-  justify-content:center;
-  align-items:center;
-}
-
-#login-box{
-  background:#fff;
-  padding:30px;
-  border-radius:15px;
-  width:300px;
-  text-align:center;
-  box-shadow:0 5px 20px rgba(0,0,0,0.4);
-}
-
-#login-box h3{
-  margin-top:0;
-  color:#b30000;
-}
-
-input{
-  width:90%;
-  padding:10px;
-  margin:10px 0;
-  border:1px solid #ccc;
-  border-radius:6px;
-}
-
-.btn-submit{
-  width:100%;
-  padding:10px;
-  background:#b30000;
-  color:#fff;
-  border:none;
-  border-radius:6px;
-  cursor:pointer;
-}
-
-.btn-cancel{
-  margin-top:10px;
-  font-size:14px;
-  cursor:pointer;
-  color:#666;
-}
-
-.loading{
-  display:none;
-  color:#b30000;
-  margin-bottom:8px;
-}
-
-.hidden{display:none;}
-#msg{color:red;height:18px;font-size:13px;}
+  /* 登入彈窗樣式 */
+  #login-overlay {
+    display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(0,0,0,0.6); z-index: 999; justify-content: center; align-items: center;
+  }
+  #login-box {
+    background: white; padding: 25px; border-radius: 10px; width: 280px; text-align: center;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+  }
+  input { width: 90%; padding: 10px; margin: 10px 0; border: 1px solid #ccc; border-radius: 4px; }
+  .btn-submit { width: 100%; padding: 10px; background: #4285f4; color: white; border: none; border-radius: 4px; cursor: pointer; }
+  .btn-cancel { margin-top: 10px; color: #666; cursor: pointer; font-size: 14px; }
+  #msg { color: red; font-size: 13px; margin-top: 5px; height: 18px; }
+  .loading { display: none; margin-bottom: 10px; color: #4285f4; }
+  .hidden { display: none; }
 </style>
 </head>
-
 <body>
 
-<div class="main-title">🏮 2026 馬年特別版 生教系統 🐎</div>
+<h2>2026 生教組系統</h2>
 
-<!-- 主頁 -->
-<div class="section-box" id="main-links">
-  <div class="link-list">
-    <div class="btn-link" onclick="openLogin('https://docs.google.com/spreadsheets/d/1HA14Y11V4vpkQ8g7W3ecV6VyKJaxWzDD4Nah4z8IJOs/edit?usp=drive_link','admin')">資料清除</div>
-    <div class="btn-link" onclick="openLogin('https://docs.google.com/spreadsheets/d/1DuMqFM4zSgPh6ZMOgpp36ra1Ya_slmgmp3x6VrmUNiQ/edit?usp=drive_link','admin')">填報設定</div>
-    <div class="btn-link" onclick="showClassPage()">成績填報</div>
-  </div>
+<!-- 主頁連結 -->
+<div class="link-list" id="main-links">
+  <div class="btn-link" onclick="openLogin('https://docs.google.com/spreadsheets/d/1HA14Y11V4vpkQ8g7W3ecV6VyKJaxWzDD4Nah4z8IJOs/edit?usp=drive_link','admin')">資料清除</div>
+  <div class="btn-link" onclick="openLogin('https://docs.google.com/spreadsheets/d/1DuMqFM4zSgPh6ZMOgpp36ra1Ya_slmgmp3x6VrmUNiQ/edit?usp=drive_link','admin')">填報設定</div>
+  <div class="btn-link" onclick="showClassPage()">成績填報</div>
 </div>
 
-<!-- 班級頁 -->
-<div class="section-box hidden" id="class-page">
-  <h2 style="text-align:center;color:#b30000;">班級成績填報</h2>
-  <div id="class-container"></div>
-
-  <div class="back-btn">
+<!-- 班級填報頁面 -->
+<div id="class-page" class="hidden">
+  <h3>班級成績填報</h3>
+  <div class="class-list" id="class-links">
+    <!-- 班級按鈕由 JS 生成 -->
+  </div>
+  <div style="margin-top:20px;">
     <div class="btn-link" onclick="backToMain()">返回主頁</div>
   </div>
 </div>
@@ -196,7 +55,7 @@ input{
 <!-- 登入彈窗 -->
 <div id="login-overlay">
   <div id="login-box">
-    <h3>身份驗證</h3>
+    <h3 style="margin-top:0">身份驗證</h3>
     <input type="text" id="acc" placeholder="輸入帳號">
     <input type="password" id="pwd" placeholder="輸入密碼">
     <div id="msg"></div>
@@ -207,94 +66,108 @@ input{
 </div>
 
 <script>
-const GAS_URL="https://script.google.com/macros/s/AKfycbxQQhwneU7Y91bClv5rqwGpjvnuIxeluyfP5SeY1XLxIy8KlAJ2XfKA66MEV6nzj5lq/exec";
-let currentUrl="";
-let target="";
+  const GAS_URL = "https://script.google.com/macros/s/AKfycbxQQhwneU7Y91bClv5rqwGpjvnuIxeluyfP5SeY1XLxIy8KlAJ2XfKA66MEV6nzj5lq/exec"; 
+  let currentUrl = "";
+  let target = "";
 
-/* ====== 班級資料 (功能完全不變) ====== */
-const classes=[
-{name:"101",url:"https://docs.google.com/spreadsheets/d/143KUbl7g-Z-TLYFV2ucrA-aeQPjqJrh1WD0xru2rAzI/edit?usp=drive_link"},
-{name:"102",url:"https://docs.google.com/spreadsheets/d/1tq1Q_B3DvFVG739efFqt30Vq26KIJwMOfjzS6FeN2g/edit?usp=drive_link"},
-{name:"103",url:"https://docs.google.com/spreadsheets/d/1J63gH6QhX0cTC8XhvRWg6f030Vw0o4JImFvQKeUSVbY/edit?usp=drive_link"},
-{name:"104",url:"https://docs.google.com/spreadsheets/d/1cu-2XM90mrHSCK_gEnAeU8k7b61u-h3lDSkG86X9pi4/edit?usp=drive_link"},
-{name:"201",url:"https://docs.google.com/spreadsheets/d/17GVgNWoT0z7KWOby6Zotx8PhSkYTrIsT9hyuhU-l6oM/edit?usp=drive_link"},
-{name:"202",url:"https://docs.google.com/spreadsheets/d/1VoS8ZtIbd4f0CZTNMD8EjF41zj20VwNgLkWu4tfRA0U/edit?usp=drive_link"},
-{name:"203",url:"https://docs.google.com/spreadsheets/d/1UYXMqWqb4IgVYrwGvFY2IZEv0WoR_cEJmXU9Mkwe0mE/edit?usp=drive_link"},
-{name:"204",url:"https://docs.google.com/spreadsheets/d/12X7ibLpoxm5nB8iTKGX7AMfuYhAcp8MkwB2iLto4Gkg/edit?usp=drive_link"},
-{name:"301",url:"https://docs.google.com/spreadsheets/d/19Df7JkyFI3Rrsc6ap1n3GCzuKcJZNzS5EiX8fRBWtvc/edit?usp=drive_link"},
-{name:"302",url:"https://docs.google.com/spreadsheets/d/1SIwSMHv3zsmHQblJAtcDY_GTt9d6hH-Do6vyOEAJnKg/edit?usp=drive_link"},
-{name:"303",url:"https://docs.google.com/spreadsheets/d/1JrbxOS2Gvdr3I2F2U8fVc_1gnzsfiVtA-BmSvNjJces/edit?usp=drive_link"},
-{name:"304",url:"https://docs.google.com/spreadsheets/d/1yFiKZ_keE9sU4gJ2q5CCjPcdkkUtdKbsJPOBpNRSGK0/edit?usp=drive_link"},
-{name:"401",url:"https://docs.google.com/spreadsheets/d/1Et5ZbUlovlVUFlw70RqEDnSEDM7VgXctZho_a2-_QAk/edit?usp=drive_link"},
-{name:"402",url:"https://docs.google.com/spreadsheets/d/1SexN-Ro7wXwPBPU7je94trMaFMeozbeCDulDRozOi3Q/edit?usp=drive_link"},
-{name:"403",url:"https://docs.google.com/spreadsheets/d/19qZrXl252GQGOUTHC9BcmDyFu7hnlU3cEkcMge95u8w/edit?usp=drive_link"},
-{name:"404",url:"https://docs.google.com/spreadsheets/d/1MEZOe62s6nV5c-U5DWnTfzdXf3nUBFDn8_GRhQuVdqM/edit?usp=drive_link"},
-{name:"501",url:"https://docs.google.com/spreadsheets/d/1qYNVAPDcpsFEzClj_si9qmQmsZJNcyY_aOHrJE25ZSw/edit?usp=drive_link"},
-{name:"502",url:"https://docs.google.com/spreadsheets/d/1Y9J0kaOEIfrrGPUFfjCd0q39spszMOTBJ-b2I3QP5tM/edit?usp=drive_link"},
-{name:"503",url:"https://docs.google.com/spreadsheets/d/1wndongYbhO_sv99qzR6S6IGX2S5qyCpgRuOpDf51RGE/edit?usp=drive_link"},
-{name:"504",url:"https://docs.google.com/spreadsheets/d/1khQr5zkCRW8a0pr5YDmkkS4A4FDcDVGROtsws9Xaa8U/edit?usp=drive_link"},
-{name:"601",url:"https://docs.google.com/spreadsheets/d/1pVFpRPkqpZFbnufVRNo_0LI_OhrAWIlff73Vw6LXEZk/edit?usp=drive_link"},
-{name:"602",url:"https://docs.google.com/spreadsheets/d/1rzg48aQAO_TFHNgdFGuV1libzwtB1ZmNIJJlS6Wq2AE/edit?usp=drive_link"},
-{name:"603",url:"https://docs.google.com/spreadsheets/d/1yA6gDLj8JPiDHaw5ILTsUV0jbi1Ccg7ImGy5nXgt0YU/edit?usp=drive_link"},
-{name:"604",url:"https://docs.google.com/spreadsheets/d/150QH2hxXhQ4gWK-beTT1fLrgcSiy9AslrM81LNiWGI4/edit?usp=drive_link"}
-];
+  // 班級資料
+  const classes = [
+    {name:"101", url:"https://docs.google.com/spreadsheets/d/143KUbl7g-Z-TLYFV2ucrA-aeQPjqJrh1WD0xru2rAzI/edit?usp=drive_link"},
+    {name:"102", url:"https://docs.google.com/spreadsheets/d/1tq1Q_B3DvFVG739efFqt30Vq26KIJwMOfjzS6FeN2g/edit?usp=drive_link"},
+    {name:"103", url:"https://docs.google.com/spreadsheets/d/1J63gH6QhX0cTC8XhvRWg6f030Vw0o4JImFvQKeUSVbY/edit?usp=drive_link"},
+    {name:"104", url:"https://docs.google.com/spreadsheets/d/1cu-2XM90mrHSCK_gEnAeU8k7b61u-h3lDSkG86X9pi4/edit?usp=drive_link"},
+    {name:"201", url:"https://docs.google.com/spreadsheets/d/17GVgNWoT0z7KWOby6Zotx8PhSkYTrIsT9hyuhU-l6oM/edit?usp=drive_link"},
+    {name:"202", url:"https://docs.google.com/spreadsheets/d/1VoS8ZtIbd4f0CZTNMD8EjF41zj20VwNgLkWu4tfRA0U/edit?usp=drive_link"},
+    {name:"203", url:"https://docs.google.com/spreadsheets/d/1UYXMqWqb4IgVYrwGvFY2IZEv0WoR_cEJmXU9Mkwe0mE/edit?usp=drive_link"},
+    {name:"204", url:"https://docs.google.com/spreadsheets/d/12X7ibLpoxm5nB8iTKGX7AMfuYhAcp8MkwB2iLto4Gkg/edit?usp=drive_link"},
+    {name:"301", url:"https://docs.google.com/spreadsheets/d/19Df7JkyFI3Rrsc6ap1n3GCzuKcJZNzS5EiX8fRBWtvc/edit?usp=drive_link"},
+    {name:"302", url:"https://docs.google.com/spreadsheets/d/1SIwSMHv3zsmHQblJAtcDY_GTt9d6hH-Do6vyOEAJnKg/edit?usp=drive_link"},
+    {name:"303", url:"https://docs.google.com/spreadsheets/d/1JrbxOS2Gvdr3I2F2U8fVc_1gnzsfiVtA-BmSvNjJces/edit?usp=drive_link"},
+    {name:"304", url:"https://docs.google.com/spreadsheets/d/1yFiKZ_keE9sU4gJ2q5CCjPcdkkUtdKbsJPOBpNRSGK0/edit?usp=drive_link"},
+    {name:"401", url:"https://docs.google.com/spreadsheets/d/1Et5ZbUlovlVUFlw70RqEDnSEDM7VgXctZho_a2-_QAk/edit?usp=drive_link"},
+    {name:"402", url:"https://docs.google.com/spreadsheets/d/1SexN-Ro7wXwPBPU7je94trMaFMeozbeCDulDRozOi3Q/edit?usp=drive_link"},
+    {name:"403", url:"https://docs.google.com/spreadsheets/d/19qZrXl252GQGOUTHC9BcmDyFu7hnlU3cEkcMge95u8w/edit?usp=drive_link"},
+    {name:"404", url:"https://docs.google.com/spreadsheets/d/1MEZOe62s6nV5c-U5DWnTfzdXf3nUBFDn8_GRhQuVdqM/edit?usp=drive_link"},
+    {name:"501", url:"https://docs.google.com/spreadsheets/d/1qYNVAPDcpsFEzClj_si9qmQmsZJNcyY_aOHrJE25ZSw/edit?usp=drive_link"},
+    {name:"502", url:"https://docs.google.com/spreadsheets/d/1Y9J0kaOEIfrrGPUFfjCd0q39spszMOTBJ-b2I3QP5tM/edit?usp=drive_link"},
+    {name:"503", url:"https://docs.google.com/spreadsheets/d/1wndongYbhO_sv99qzR6S6IGX2S5qyCpgRuOpDf51RGE/edit?usp=drive_link"},
+    {name:"504", url:"https://docs.google.com/spreadsheets/d/1khQr5zkCRW8a0pr5YDmkkS4A4FDcDVGROtsws9Xaa8U/edit?usp=drive_link"},
+    {name:"601", url:"https://docs.google.com/spreadsheets/d/1pVFpRPkqpZFbnufVRNo_0LI_OhrAWIlff73Vw6LXEZk/edit?usp=drive_link"},
+    {name:"602", url:"https://docs.google.com/spreadsheets/d/1rzg48aQAO_TFHNgdFGuV1libzwtB1ZmNIJJlS6Wq2AE/edit?usp=drive_link"},
+    {name:"603", url:"https://docs.google.com/spreadsheets/d/1yA6gDLj8JPiDHaw5ILTsUV0jbi1Ccg7ImGy5nXgt0YU/edit?usp=drive_link"},
+    {name:"604", url:"https://docs.google.com/spreadsheets/d/150QH2hxXhQ4gWK-beTT1fLrgcSiy9AslrM81LNiWGI4/edit?usp=drive_link"}
+  ];
 
-/* ===== 年級分組顯示 ===== */
-const container=document.getElementById("class-container");
+  // 生成班級按鈕
+  const classLinksDiv = document.getElementById('class-links');
+  for(let i=0;i<classes.length;i++){
+    const btn = document.createElement('div');
+    btn.className = 'btn-link';
+    btn.style.flex = '1 1 20%';
+    btn.innerText = classes[i].name;
+    btn.onclick = ()=>openLogin(classes[i].url,'class');
+    classLinksDiv.appendChild(btn);
+    if((i+1)%4===0){ // 每4個班換行
+      classLinksDiv.appendChild(document.createElement('br'));
+    }
+  }
 
-for(let g=1;g<=6;g++){
-  const gradeDiv=document.createElement("div");
-  gradeDiv.className="grade-group";
+  function showClassPage(){
+    document.getElementById('main-links').classList.add('hidden');
+    document.getElementById('class-page').classList.remove('hidden');
+  }
 
-  const title=document.createElement("div");
-  title.className="grade-title";
-  title.innerText=`${g}年級`;
-  gradeDiv.appendChild(title);
+  function backToMain(){
+    document.getElementById('class-page').classList.add('hidden');
+    document.getElementById('main-links').classList.remove('hidden');
+  }
 
-  const grid=document.createElement("div");
-  grid.className="class-grid";
+  function openLogin(url,t){
+    currentUrl = url;
+    target = t;
+    document.getElementById('login-overlay').style.display = 'flex';
+    document.getElementById('acc').value = "";
+    document.getElementById('pwd').value = "";
+    document.getElementById('msg').innerText = "";
+  }
 
-  classes.filter(c=>c.name.startsWith(g))
-    .forEach(c=>{
-      const btn=document.createElement("div");
-      btn.className="class-btn";
-      btn.innerText=c.name;
-      btn.onclick=()=>openLogin(c.url,'class');
-      grid.appendChild(btn);
-    });
+  function closeLogin(){
+    document.getElementById('login-overlay').style.display = 'none';
+  }
 
-  gradeDiv.appendChild(grid);
-  container.appendChild(gradeDiv);
-}
+  async function doVerify(){
+    const user = document.getElementById('acc').value;
+    const pass = document.getElementById('pwd').value;
+    const msg = document.getElementById('msg');
+    const loader = document.getElementById('loader');
 
-/* ===== 原功能維持 ===== */
-function showClassPage(){
-  document.getElementById('main-links').classList.add('hidden');
-  document.getElementById('class-page').classList.remove('hidden');
-}
-function backToMain(){
-  document.getElementById('class-page').classList.add('hidden');
-  document.getElementById('main-links').classList.remove('hidden');
-}
-function openLogin(url,t){
-  currentUrl=url;target=t;
-  document.getElementById('login-overlay').style.display='flex';
-  acc.value="";pwd.value="";msg.innerText="";
-}
-function closeLogin(){login-overlay.style.display='none';}
-async function doVerify(){
-  const user=acc.value;
-  const pass=pwd.value;
-  if(!user||!pass){msg.innerText="請完整輸入帳號密碼";return;}
-  loader.style.display="block";
-  try{
-    const res=await fetch(`${GAS_URL}?user=${encodeURIComponent(user)}&pass=${encodeURIComponent(pass)}&target=${encodeURIComponent(target)}`);
-    const data=await res.json();
-    loader.style.display="none";
-    if(data.ok===true){window.open(currentUrl,'_blank');closeLogin();}
-    else{msg.innerText=data.msg||"帳號或密碼錯誤";}
-  }catch(e){loader.style.display="none";msg.innerText="連線發生錯誤";}
-}
+    if(!user || !pass){
+      msg.innerText = "請完整輸入帳號密碼";
+      return;
+    }
+
+    msg.innerText = "";
+    loader.style.display = "block";
+
+    try{
+      const response = await fetch(`${GAS_URL}?user=${encodeURIComponent(user)}&pass=${encodeURIComponent(pass)}&target=${encodeURIComponent(target)}`);
+      const data = await response.json();
+      loader.style.display = "none";
+
+      if(data.ok===true){
+        window.open(currentUrl,'_blank');
+        closeLogin();
+      }else{
+        msg.innerText = data.msg ? data.msg : "帳號或密碼錯誤";
+      }
+
+    }catch(e){
+      loader.style.display = "none";
+      msg.innerText = "連線發生錯誤";
+      console.error(e);
+    }
+  }
+
 </script>
 </body>
 </html>
