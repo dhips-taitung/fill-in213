@@ -3,99 +3,135 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>2026 馬年特別版 生教系統</title>
+<title>2026 馬到成功版-教學組系統</title>
 
 <style>
 body{
   font-family:"Microsoft JhengHei",sans-serif;
   margin:0;
   padding:0;
-  background:linear-gradient(135deg,#8B0000,#B22222,#FFD700);
-  color:#333;
+  background:linear-gradient(135deg,#7b0000,#b30000,#ffcc00);
   display:flex;
   flex-direction:column;
   align-items:center;
+  color:#fff;
 }
 
 /* 標題 */
-h2{
-  margin-top:25px;
-  color:#fff;
-  text-shadow:2px 2px 6px rgba(0,0,0,0.4);
+.main-title{
+  margin-top:30px;
   font-size:28px;
+  font-weight:bold;
+  letter-spacing:3px;
+  text-shadow:0 0 10px rgba(255,255,255,0.6);
+}
+
+/* 區塊容器 */
+.section-box{
+  background:rgba(255,255,255,0.95);
+  color:#333;
+  width:95%;
+  max-width:1100px;
+  margin-top:30px;
+  padding:25px;
+  border-radius:15px;
+  box-shadow:0 10px 30px rgba(0,0,0,0.4);
 }
 
 /* 主頁按鈕 */
 .link-list{
   display:flex;
   gap:20px;
-  flex-wrap:wrap;
   justify-content:center;
-  margin-top:30px;
+  flex-wrap:wrap;
 }
 
 .btn-link{
-  padding:12px 22px;
+  padding:12px 25px;
+  background:linear-gradient(45deg,#b30000,#ff0000);
+  border:none;
+  color:#fff;
+  border-radius:30px;
+  cursor:pointer;
+  font-weight:bold;
+  transition:0.3s;
+  box-shadow:0 4px 10px rgba(0,0,0,0.3);
+}
+
+.btn-link:hover{
+  transform:translateY(-3px);
+  background:linear-gradient(45deg,#ffcc00,#ff9900);
+  color:#7b0000;
+}
+
+/* 年級區塊 */
+.grade-group{
+  margin-top:25px;
+}
+
+.grade-title{
+  font-size:20px;
+  font-weight:bold;
+  margin-bottom:10px;
+  padding-bottom:5px;
+  border-bottom:2px solid #b30000;
+}
+
+/* 班級按鈕 */
+.class-grid{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:15px;
+}
+
+.class-btn{
   background:#fff;
-  border:2px solid #FFD700;
-  color:#8B0000;
-  border-radius:8px;
+  border:2px solid #b30000;
+  color:#b30000;
+  padding:12px;
+  border-radius:10px;
+  text-align:center;
   cursor:pointer;
   font-weight:bold;
   transition:0.3s;
 }
 
-.btn-link:hover{
-  background:#FFD700;
-  color:#8B0000;
-  transform:scale(1.05);
+.class-btn:hover{
+  background:#b30000;
+  color:#fff;
 }
 
-/* 班級頁面 */
-#class-page{
-  width:95%;
-  max-width:1200px;
-}
-
-.grade-section{
+/* 返回 */
+.back-btn{
   margin-top:25px;
-  padding:15px;
-  background:rgba(255,255,255,0.9);
-  border-radius:12px;
-  box-shadow:0 4px 10px rgba(0,0,0,0.2);
+  text-align:center;
 }
 
-.grade-title{
-  font-weight:bold;
-  margin-bottom:12px;
-  color:#8B0000;
-  font-size:18px;
-}
-
-.class-row{
-  display:flex;
-  gap:15px;
-  flex-wrap:wrap;
-}
-
-/* 登入視窗 */
+/* 登入彈窗 */
 #login-overlay{
   display:none;
   position:fixed;
   top:0;left:0;
-  width:100%;height:100%;
-  background:rgba(0,0,0,0.6);
+  width:100%;
+  height:100%;
+  background:rgba(0,0,0,0.7);
   z-index:999;
   justify-content:center;
   align-items:center;
 }
 
 #login-box{
-  background:white;
-  padding:25px;
-  border-radius:10px;
-  width:280px;
+  background:#fff;
+  padding:30px;
+  border-radius:15px;
+  width:300px;
   text-align:center;
+  box-shadow:0 5px 20px rgba(0,0,0,0.4);
+}
+
+#login-box h3{
+  margin-top:0;
+  color:#b30000;
 }
 
 input{
@@ -103,57 +139,68 @@ input{
   padding:10px;
   margin:10px 0;
   border:1px solid #ccc;
-  border-radius:4px;
+  border-radius:6px;
 }
 
 .btn-submit{
   width:100%;
   padding:10px;
-  background:#B22222;
-  color:white;
+  background:#b30000;
+  color:#fff;
   border:none;
-  border-radius:4px;
+  border-radius:6px;
   cursor:pointer;
 }
 
 .btn-cancel{
   margin-top:10px;
-  color:#666;
-  cursor:pointer;
   font-size:14px;
+  cursor:pointer;
+  color:#666;
 }
 
-#msg{color:red;font-size:13px;height:18px;}
-.loading{display:none;color:#B22222;}
+.loading{
+  display:none;
+  color:#b30000;
+  margin-bottom:8px;
+}
+
 .hidden{display:none;}
+#msg{color:red;height:18px;font-size:13px;}
 </style>
 </head>
 
 <body>
 
-<h2>🐎 2026 馬年特別版 生教系統 🐎</h2>
+<div class="main-title">🏮 2026 馬年特別版 生教系統 🐎</div>
 
-<div class="link-list" id="main-links">
-  <div class="btn-link" onclick="openLogin('https://docs.google.com/spreadsheets/d/1HA14Y11V4vpkQ8g7W3ecV6VyKJaxWzDD4Nah4z8IJOs/edit?usp=drive_link','admin')">資料清除</div>
-  <div class="btn-link" onclick="openLogin('https://docs.google.com/spreadsheets/d/1DuMqFM4zSgPh6ZMOgpp36ra1Ya_slmgmp3x6VrmUNiQ/edit?usp=drive_link','admin')">填報設定</div>
-  <div class="btn-link" onclick="showClassPage()">成績填報</div>
+<!-- 主頁 -->
+<div class="section-box" id="main-links">
+  <div class="link-list">
+    <div class="btn-link" onclick="openLogin('https://docs.google.com/spreadsheets/d/1HA14Y11V4vpkQ8g7W3ecV6VyKJaxWzDD4Nah4z8IJOs/edit?usp=drive_link','admin')">資料清除</div>
+    <div class="btn-link" onclick="openLogin('https://docs.google.com/spreadsheets/d/1DuMqFM4zSgPh6ZMOgpp36ra1Ya_slmgmp3x6VrmUNiQ/edit?usp=drive_link','admin')">填報設定</div>
+    <div class="btn-link" onclick="showClassPage()">成績填報</div>
+  </div>
 </div>
 
-<div id="class-page" class="hidden">
-  <h3 style="color:white;text-align:center;">班級成績填報</h3>
-  <div id="grade-container"></div>
-  <div style="text-align:center;margin:30px;">
+<!-- 班級頁 -->
+<div class="section-box hidden" id="class-page">
+  <h2 style="text-align:center;color:#b30000;">班級成績填報</h2>
+  <div id="class-container"></div>
+
+  <div class="back-btn">
     <div class="btn-link" onclick="backToMain()">返回主頁</div>
   </div>
 </div>
 
+<!-- 登入彈窗 -->
 <div id="login-overlay">
   <div id="login-box">
     <h3>身份驗證</h3>
     <input type="text" id="acc" placeholder="輸入帳號">
     <input type="password" id="pwd" placeholder="輸入密碼">
     <div id="msg"></div>
-    <div id="loader" class="loading">驗證中...</div>
+    <div id="loader" class="loading">驗證中，請稍候...</div>
     <button class="btn-submit" onclick="doVerify()">登入</button>
     <div class="btn-cancel" onclick="closeLogin()">取消</div>
   </div>
@@ -164,57 +211,63 @@ const GAS_URL="https://script.google.com/macros/s/AKfycbxQQhwneU7Y91bClv5rqwGpjv
 let currentUrl="";
 let target="";
 
-const classes=[ /* 原24班資料完全保留 */ 
-{ name:"101",url:"https://docs.google.com/spreadsheets/d/143KUbl7g-Z-TLYFV2ucrA-aeQPjqJrh1WD0xru2rAzI/edit?usp=drive_link"},
-{ name:"102",url:"https://docs.google.com/spreadsheets/d/1tq1Q_B3DvFVG739efFqt30Vq26KIJwMOfjzS6FeN2g/edit?usp=drive_link"},
-{ name:"103",url:"https://docs.google.com/spreadsheets/d/1J63gH6QhX0cTC8XhvRWg6f030Vw0o4JImFvQKeUSVbY/edit?usp=drive_link"},
-{ name:"104",url:"https://docs.google.com/spreadsheets/d/1cu-2XM90mrHSCK_gEnAeU8k7b61u-h3lDSkG86X9pi4/edit?usp=drive_link"},
-{ name:"201",url:"https://docs.google.com/spreadsheets/d/17GVgNWoT0z7KWOby6Zotx8PhSkYTrIsT9hyuhU-l6oM/edit?usp=drive_link"},
-{ name:"202",url:"https://docs.google.com/spreadsheets/d/1VoS8ZtIbd4f0CZTNMD8EjF41zj20VwNgLkWu4tfRA0U/edit?usp=drive_link"},
-{ name:"203",url:"https://docs.google.com/spreadsheets/d/1UYXMqWqb4IgVYrwGvFY2IZEv0WoR_cEJmXU9Mkwe0mE/edit?usp=drive_link"},
-{ name:"204",url:"https://docs.google.com/spreadsheets/d/12X7ibLpoxm5nB8iTKGX7AMfuYhAcp8MkwB2iLto4Gkg/edit?usp=drive_link"},
-{ name:"301",url:"https://docs.google.com/spreadsheets/d/19Df7JkyFI3Rrsc6ap1n3GCzuKcJZNzS5EiX8fRBWtvc/edit?usp=drive_link"},
-{ name:"302",url:"https://docs.google.com/spreadsheets/d/1SIwSMHv3zsmHQblJAtcDY_GTt9d6hH-Do6vyOEAJnKg/edit?usp=drive_link"},
-{ name:"303",url:"https://docs.google.com/spreadsheets/d/1JrbxOS2Gvdr3I2F2U8fVc_1gnzsfiVtA-BmSvNjJces/edit?usp=drive_link"},
-{ name:"304",url:"https://docs.google.com/spreadsheets/d/1yFiKZ_keE9sU4gJ2q5CCjPcdkkUtdKbsJPOBpNRSGK0/edit?usp=drive_link"},
-{ name:"401",url:"https://docs.google.com/spreadsheets/d/1Et5ZbUlovlVUFlw70RqEDnSEDM7VgXctZho_a2-_QAk/edit?usp=drive_link"},
-{ name:"402",url:"https://docs.google.com/spreadsheets/d/1SexN-Ro7wXwPBPU7je94trMaFMeozbeCDulDRozOi3Q/edit?usp=drive_link"},
-{ name:"403",url:"https://docs.google.com/spreadsheets/d/19qZrXl252GQGOUTHC9BcmDyFu7hnlU3cEkcMge95u8w/edit?usp=drive_link"},
-{ name:"404",url:"https://docs.google.com/spreadsheets/d/1MEZOe62s6nV5c-U5DWnTfzdXf3nUBFDn8_GRhQuVdqM/edit?usp=drive_link"},
-{ name:"501",url:"https://docs.google.com/spreadsheets/d/1qYNVAPDcpsFEzClj_si9qmQmsZJNcyY_aOHrJE25ZSw/edit?usp=drive_link"},
-{ name:"502",url:"https://docs.google.com/spreadsheets/d/1Y9J0kaOEIfrrGPUFfjCd0q39spszMOTBJ-b2I3QP5tM/edit?usp=drive_link"},
-{ name:"503",url:"https://docs.google.com/spreadsheets/d/1wndongYbhO_sv99qzR6S6IGX2S5qyCpgRuOpDf51RGE/edit?usp=drive_link"},
-{ name:"504",url:"https://docs.google.com/spreadsheets/d/1khQr5zkCRW8a0pr5YDmkkS4A4FDcDVGROtsws9Xaa8U/edit?usp=drive_link"},
-{ name:"601",url:"https://docs.google.com/spreadsheets/d/1pVFpRPkqpZFbnufVRNo_0LI_OhrAWIlff73Vw6LXEZk/edit?usp=drive_link"},
-{ name:"602",url:"https://docs.google.com/spreadsheets/d/1rzg48aQAO_TFHNgdFGuV1libzwtB1ZmNIJJlS6Wq2AE/edit?usp=drive_link"},
-{ name:"603",url:"https://docs.google.com/spreadsheets/d/1yA6gDLj8JPiDHaw5ILTsUV0jbi1Ccg7ImGy5nXgt0YU/edit?usp=drive_link"},
-{ name:"604",url:"https://docs.google.com/spreadsheets/d/150QH2hxXhQ4gWK-beTT1fLrgcSiy9AslrM81LNiWGI4/edit?usp=drive_link"}
+/* ====== 班級資料 (功能完全不變) ====== */
+const classes=[
+{name:"101",url:"https://docs.google.com/spreadsheets/d/143KUbl7g-Z-TLYFV2ucrA-aeQPjqJrh1WD0xru2rAzI/edit?usp=drive_link"},
+{name:"102",url:"https://docs.google.com/spreadsheets/d/1tq1Q_B3DvFVG739efFqt30Vq26KIJwMOfjzS6FeN2g/edit?usp=drive_link"},
+{name:"103",url:"https://docs.google.com/spreadsheets/d/1J63gH6QhX0cTC8XhvRWg6f030Vw0o4JImFvQKeUSVbY/edit?usp=drive_link"},
+{name:"104",url:"https://docs.google.com/spreadsheets/d/1cu-2XM90mrHSCK_gEnAeU8k7b61u-h3lDSkG86X9pi4/edit?usp=drive_link"},
+{name:"201",url:"https://docs.google.com/spreadsheets/d/17GVgNWoT0z7KWOby6Zotx8PhSkYTrIsT9hyuhU-l6oM/edit?usp=drive_link"},
+{name:"202",url:"https://docs.google.com/spreadsheets/d/1VoS8ZtIbd4f0CZTNMD8EjF41zj20VwNgLkWu4tfRA0U/edit?usp=drive_link"},
+{name:"203",url:"https://docs.google.com/spreadsheets/d/1UYXMqWqb4IgVYrwGvFY2IZEv0WoR_cEJmXU9Mkwe0mE/edit?usp=drive_link"},
+{name:"204",url:"https://docs.google.com/spreadsheets/d/12X7ibLpoxm5nB8iTKGX7AMfuYhAcp8MkwB2iLto4Gkg/edit?usp=drive_link"},
+{name:"301",url:"https://docs.google.com/spreadsheets/d/19Df7JkyFI3Rrsc6ap1n3GCzuKcJZNzS5EiX8fRBWtvc/edit?usp=drive_link"},
+{name:"302",url:"https://docs.google.com/spreadsheets/d/1SIwSMHv3zsmHQblJAtcDY_GTt9d6hH-Do6vyOEAJnKg/edit?usp=drive_link"},
+{name:"303",url:"https://docs.google.com/spreadsheets/d/1JrbxOS2Gvdr3I2F2U8fVc_1gnzsfiVtA-BmSvNjJces/edit?usp=drive_link"},
+{name:"304",url:"https://docs.google.com/spreadsheets/d/1yFiKZ_keE9sU4gJ2q5CCjPcdkkUtdKbsJPOBpNRSGK0/edit?usp=drive_link"},
+{name:"401",url:"https://docs.google.com/spreadsheets/d/1Et5ZbUlovlVUFlw70RqEDnSEDM7VgXctZho_a2-_QAk/edit?usp=drive_link"},
+{name:"402",url:"https://docs.google.com/spreadsheets/d/1SexN-Ro7wXwPBPU7je94trMaFMeozbeCDulDRozOi3Q/edit?usp=drive_link"},
+{name:"403",url:"https://docs.google.com/spreadsheets/d/19qZrXl252GQGOUTHC9BcmDyFu7hnlU3cEkcMge95u8w/edit?usp=drive_link"},
+{name:"404",url:"https://docs.google.com/spreadsheets/d/1MEZOe62s6nV5c-U5DWnTfzdXf3nUBFDn8_GRhQuVdqM/edit?usp=drive_link"},
+{name:"501",url:"https://docs.google.com/spreadsheets/d/1qYNVAPDcpsFEzClj_si9qmQmsZJNcyY_aOHrJE25ZSw/edit?usp=drive_link"},
+{name:"502",url:"https://docs.google.com/spreadsheets/d/1Y9J0kaOEIfrrGPUFfjCd0q39spszMOTBJ-b2I3QP5tM/edit?usp=drive_link"},
+{name:"503",url:"https://docs.google.com/spreadsheets/d/1wndongYbhO_sv99qzR6S6IGX2S5qyCpgRuOpDf51RGE/edit?usp=drive_link"},
+{name:"504",url:"https://docs.google.com/spreadsheets/d/1khQr5zkCRW8a0pr5YDmkkS4A4FDcDVGROtsws9Xaa8U/edit?usp=drive_link"},
+{name:"601",url:"https://docs.google.com/spreadsheets/d/1pVFpRPkqpZFbnufVRNo_0LI_OhrAWIlff73Vw6LXEZk/edit?usp=drive_link"},
+{name:"602",url:"https://docs.google.com/spreadsheets/d/1rzg48aQAO_TFHNgdFGuV1libzwtB1ZmNIJJlS6Wq2AE/edit?usp=drive_link"},
+{name:"603",url:"https://docs.google.com/spreadsheets/d/1yA6gDLj8JPiDHaw5ILTsUV0jbi1Ccg7ImGy5nXgt0YU/edit?usp=drive_link"},
+{name:"604",url:"https://docs.google.com/spreadsheets/d/150QH2hxXhQ4gWK-beTT1fLrgcSiy9AslrM81LNiWGI4/edit?usp=drive_link"}
 ];
 
-// 依年級分組產生
-const container=document.getElementById("grade-container");
-for(let g=1;g<=6;g++){
-  const section=document.createElement("div");
-  section.className="grade-section";
-  section.innerHTML=`<div class="grade-title">第 ${g} 年級</div>`;
-  const row=document.createElement("div");
-  row.className="class-row";
+/* ===== 年級分組顯示 ===== */
+const container=document.getElementById("class-container");
 
-  for(let i=1;i<=4;i++){
-    const className=`${g}0${i}`;
-    const obj=classes.find(c=>c.name===className);
-    if(obj){
+for(let g=1;g<=6;g++){
+  const gradeDiv=document.createElement("div");
+  gradeDiv.className="grade-group";
+
+  const title=document.createElement("div");
+  title.className="grade-title";
+  title.innerText=`${g}年級`;
+  gradeDiv.appendChild(title);
+
+  const grid=document.createElement("div");
+  grid.className="class-grid";
+
+  classes.filter(c=>c.name.startsWith(g))
+    .forEach(c=>{
       const btn=document.createElement("div");
-      btn.className="btn-link";
-      btn.innerText=obj.name;
-      btn.onclick=()=>openLogin(obj.url,'class');
-      row.appendChild(btn);
-    }
-  }
-  section.appendChild(row);
-  container.appendChild(section);
+      btn.className="class-btn";
+      btn.innerText=c.name;
+      btn.onclick=()=>openLogin(c.url,'class');
+      grid.appendChild(btn);
+    });
+
+  gradeDiv.appendChild(grid);
+  container.appendChild(gradeDiv);
 }
 
+/* ===== 原功能維持 ===== */
 function showClassPage(){
   document.getElementById('main-links').classList.add('hidden');
   document.getElementById('class-page').classList.remove('hidden');
@@ -228,13 +281,12 @@ function openLogin(url,t){
   document.getElementById('login-overlay').style.display='flex';
   acc.value="";pwd.value="";msg.innerText="";
 }
-function closeLogin(){
-  document.getElementById('login-overlay').style.display='none';
-}
+function closeLogin(){login-overlay.style.display='none';}
 async function doVerify(){
-  const user=acc.value,pass=pwd.value;
+  const user=acc.value;
+  const pass=pwd.value;
   if(!user||!pass){msg.innerText="請完整輸入帳號密碼";return;}
-  loader.style.display="block";msg.innerText="";
+  loader.style.display="block";
   try{
     const res=await fetch(`${GAS_URL}?user=${encodeURIComponent(user)}&pass=${encodeURIComponent(pass)}&target=${encodeURIComponent(target)}`);
     const data=await res.json();
