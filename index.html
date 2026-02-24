@@ -18,7 +18,6 @@
     margin: 0;
     padding: 0;
     min-height: 100vh;
-    /* 背景使用圖片中的夢幻漸層感 */
     background: linear-gradient(135deg, #fff5f6 0%, #f0f7ff 50%, #fff9e6 100%);
     display: flex;
     flex-direction: column;
@@ -28,7 +27,6 @@
     overflow-x: hidden;
   }
 
-  /* 加入浮動的背景馬圖案裝飾 */
   body::before {
     content: "🐎";
     position: fixed;
@@ -64,7 +62,6 @@
     gap: 10px;
   }
 
-  /* 主功能按鈕區 */
   .link-list {
     display: flex;
     gap: 20px;
@@ -72,7 +69,6 @@
     margin-bottom: 20px;
   }
 
-  /* 班級列表格線：每 4 個一列 */
   .class-grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
@@ -109,13 +105,12 @@
     font-size: 1rem;
   }
 
-  /* 不同年級給予不同可愛色彩 (參考圖片風格) */
-  .grade-1 .btn-link { background: #ffe0e6; } /* 粉紅 */
-  .grade-2 .btn-link { background: #fff0d4; } /* 淺橘 */
-  .grade-3 .btn-link { background: #d4f5e5; } /* 淺綠 */
-  .grade-4 .btn-link { background: #d9edff; } /* 淺藍 */
-  .grade-5 .btn-link { background: #ece0ff; } /* 淺紫 */
-  .grade-6 .btn-link { background: #ffebd4; } /* 淺黃橘 */
+  .grade-1 .btn-link { background: #ffe0e6; }
+  .grade-2 .btn-link { background: #fff0d4; }
+  .grade-3 .btn-link { background: #d4f5e5; }
+  .grade-4 .btn-link { background: #d9edff; }
+  .grade-5 .btn-link { background: #ece0ff; }
+  .grade-6 .btn-link { background: #ffebd4; }
 
   .btn-link:hover {
     transform: translateY(-5px) scale(1.03);
@@ -123,7 +118,6 @@
     filter: brightness(0.95);
   }
 
-  /* 返回按鈕 */
   .btn-back {
     margin: 40px auto 0;
     width: 120px;
@@ -134,7 +128,6 @@
     text-decoration: underline;
   }
 
-  /* 登入彈窗 */
   #login-overlay {
     display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
     background: rgba(0,0,0,0.3); backdrop-filter: blur(8px);
@@ -179,17 +172,18 @@
 
   <div id="class-page" class="hidden">
     <h3>🐎 班級成績填報</h3>
-    <div id="grade-container">
-      </div>
+    <div id="grade-container"></div>
     <div class="btn-link btn-back" onclick="backToMain()">← 返回首頁</div>
   </div>
 </div>
 
 <div id="login-overlay">
   <div id="login-box">
-    <h3 style="margin-top:0">🐎 身份驗證</h3>
-    <input type="text" id="acc" placeholder="輸入帳號">
-    <input type="password" id="pwd" placeholder="輸入密碼">
+    <h3 id="login-title" style="margin-top:0">🐎 身份驗證</h3>
+    <div id="acc-container">
+      <input type="text" id="acc" placeholder="輸入帳號">
+    </div>
+    <input type="password" id="pwd" placeholder="輸入密碼/驗證碼">
     <div id="msg"></div>
     <div id="loader" class="loading">✨ 正在快馬加鞭驗證中...</div>
     <button class="btn-submit" onclick="doVerify()">登入</button>
@@ -229,7 +223,6 @@
     {name:"604", url:"https://docs.google.com/spreadsheets/d/150QH2hxXhQ4gWK-beTT1fLrgcSiy9AslrM81LNiWGI4/edit?usp=drive_link"}
   ];
 
-  // 生成班級分頁內容
   function renderClasses() {
     const container = document.getElementById('grade-container');
     const grades = [
@@ -253,7 +246,6 @@
       const grid = document.createElement('div');
       grid.className = 'class-grid';
 
-      // 篩選該年級班級 (例如 index=0 找 101-104)
       const gradeNum = (index + 1).toString();
       const filtered = classes.filter(c => c.name.startsWith(gradeNum));
 
@@ -261,7 +253,8 @@
         const btn = document.createElement('div');
         btn.className = 'btn-link';
         btn.innerText = c.name;
-        btn.onclick = () => openLogin(c.url, 'class');
+        // 點擊班級時，傳入班級名稱作為目標識別
+        btn.onclick = () => openLogin(c.url, c.name);
         grid.appendChild(btn);
       });
 
@@ -286,10 +279,25 @@
   function openLogin(url, t){
     currentUrl = url;
     target = t;
+    const accContainer = document.getElementById('acc-container');
+    const pwdInput = document.getElementById('pwd');
+    const title = document.getElementById('login-title');
+    
     document.getElementById('login-overlay').style.display = 'flex';
+    document.getElementById('msg').innerText = "";
     document.getElementById('acc').value = "";
     document.getElementById('pwd').value = "";
-    document.getElementById('msg').innerText = "";
+
+    // 判斷是否為班級點擊 (非 admin)
+    if(t !== 'admin'){
+      accContainer.classList.add('hidden'); // 隱藏帳號輸入框
+      pwdInput.placeholder = "請輸入驗證碼";
+      title.innerText = "🐎 " + t + " 班級登入";
+    } else {
+      accContainer.classList.remove('hidden'); // 顯示帳號輸入框
+      pwdInput.placeholder = "輸入密碼";
+      title.innerText = "🐎 管理員驗證";
+    }
   }
 
   function closeLogin(){
@@ -297,13 +305,16 @@
   }
 
   async function doVerify(){
-    const user = document.getElementById('acc').value;
+    const accField = document.getElementById('acc');
     const pass = document.getElementById('pwd').value;
     const msg = document.getElementById('msg');
     const loader = document.getElementById('loader');
 
+    // 如果是班級模式，自動將帳號設為班級名稱 (target)，如果是管理員則取輸入值
+    const user = (target !== 'admin') ? target : accField.value;
+
     if(!user || !pass){
-      msg.innerText = "請完整輸入帳號密碼";
+      msg.innerText = (target !== 'admin') ? "請輸入驗證碼" : "請完整輸入帳號密碼";
       return;
     }
 
@@ -311,6 +322,7 @@
     loader.style.display = "block";
 
     try{
+      // target 參數維持傳遞原始的 target 值，後端可根據此值判斷權限
       const response = await fetch(`${GAS_URL}?user=${encodeURIComponent(user)}&pass=${encodeURIComponent(pass)}&target=${encodeURIComponent(target)}`);
       const data = await response.json();
       loader.style.display = "none";
@@ -319,7 +331,7 @@
         window.open(currentUrl,'_blank');
         closeLogin();
       }else{
-        msg.innerText = data.msg ? data.msg : "帳號或密碼錯誤";
+        msg.innerText = data.msg ? data.msg : (target !== 'admin' ? "驗證碼錯誤" : "帳號或密碼錯誤");
       }
 
     }catch(e){
