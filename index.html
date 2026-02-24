@@ -15,94 +15,39 @@
 
   body {
     font-family: "Microsoft JhengHei", "Heiti TC", sans-serif;
-    margin: 0;
-    padding: 0;
-    min-height: 100vh;
+    margin: 0; padding: 0; min-height: 100vh;
     background: linear-gradient(135deg, #fff5f6 0%, #f0f7ff 50%, #fff9e6 100%);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    color: #5d4037;
-    position: relative;
-    overflow-x: hidden;
+    display: flex; flex-direction: column; align-items: center;
+    color: #5d4037; position: relative; overflow-x: hidden;
   }
 
   body::before {
-    content: "🐎";
-    position: fixed;
-    font-size: 150px;
-    opacity: 0.03;
-    top: 10%;
-    right: -20px;
-    transform: rotate(-15deg);
-    pointer-events: none;
+    content: "🐎"; position: fixed; font-size: 150px; opacity: 0.03;
+    top: 10%; right: -20px; transform: rotate(-15deg); pointer-events: none;
   }
 
   .container {
-    width: 90%;
-    max-width: 900px;
-    margin-top: 50px;
-    background: var(--glass-bg);
-    backdrop-filter: blur(15px);
-    -webkit-backdrop-filter: blur(15px);
-    border-radius: 40px;
-    padding: 40px;
-    box-shadow: 0 20px 40px rgba(0,0,0,0.05);
-    border: 1px solid rgba(255,255,255,0.4);
-    z-index: 1;
+    width: 90%; max-width: 900px; margin-top: 50px;
+    background: var(--glass-bg); backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px); border-radius: 40px;
+    padding: 40px; box-shadow: 0 20px 40px rgba(0,0,0,0.05);
+    border: 1px solid rgba(255,255,255,0.4); z-index: 1;
   }
 
-  h2, h3 {
-    color: var(--primary-gold);
-    text-align: center;
-    margin-bottom: 30px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 10px;
-  }
+  h2, h3 { color: var(--primary-gold); text-align: center; margin-bottom: 30px; display: flex; justify-content: center; align-items: center; gap: 10px; }
 
-  .link-list {
-    display: flex;
-    gap: 20px;
-    justify-content: center;
-    margin-bottom: 20px;
-  }
+  .link-list { display: flex; gap: 20px; justify-content: center; margin-bottom: 20px; }
 
-  .class-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 15px;
-    margin-top: 10px;
-  }
+  .class-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 15px; margin-top: 10px; }
 
-  .grade-section {
-    margin-top: 30px;
-  }
+  .grade-section { margin-top: 30px; }
 
-  .grade-title {
-    text-align: center;
-    font-weight: bold;
-    font-size: 1.1rem;
-    margin-bottom: 15px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 8px;
-  }
+  .grade-title { text-align: center; font-weight: bold; font-size: 1.1rem; margin-bottom: 15px; display: flex; justify-content: center; align-items: center; gap: 8px; }
 
   .btn-link {
-    padding: 15px 10px;
-    background: white;
-    color: #444;
-    border-radius: 20px;
-    cursor: pointer;
-    font-weight: bold;
-    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    text-align: center;
-    box-shadow: var(--btn-shadow);
-    border: none;
-    font-size: 1rem;
+    padding: 15px 10px; background: white; color: #444; border-radius: 20px;
+    cursor: pointer; font-weight: bold; transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    text-align: center; box-shadow: var(--btn-shadow); border: none; font-size: 1rem;
   }
 
   .grade-1 .btn-link { background: #ffe0e6; }
@@ -112,40 +57,19 @@
   .grade-5 .btn-link { background: #ece0ff; }
   .grade-6 .btn-link { background: #ffebd4; }
 
-  .btn-link:hover {
-    transform: translateY(-5px) scale(1.03);
-    box-shadow: 0 12px 20px rgba(0,0,0,0.1);
-    filter: brightness(0.95);
-  }
+  .btn-link:hover { transform: translateY(-5px) scale(1.03); box-shadow: 0 12px 20px rgba(0,0,0,0.1); filter: brightness(0.95); }
 
-  .btn-back {
-    margin: 40px auto 0;
-    width: 120px;
-    font-size: 0.9rem;
-    color: #888;
-    background: none;
-    box-shadow: none;
-    text-decoration: underline;
-  }
+  .btn-back { margin: 40px auto 0; width: 120px; font-size: 0.9rem; color: #888; background: none; box-shadow: none; text-decoration: underline; }
 
+  /* 登入彈窗 */
   #login-overlay {
     display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
     background: rgba(0,0,0,0.3); backdrop-filter: blur(8px);
     z-index: 999; justify-content: center; align-items: center;
   }
-  #login-box {
-    background: white; padding: 40px; border-radius: 30px; width: 320px; text-align: center;
-    box-shadow: 0 25px 50px rgba(0,0,0,0.15);
-  }
-  input { 
-    width: 90%; padding: 12px; margin: 12px 0; border: 1px solid #eee; 
-    border-radius: 15px; background: #fafafa; font-size: 1rem;
-  }
-  .btn-submit { 
-    width: 100%; padding: 14px; background: linear-gradient(to right, #ff9a8b, #ff6a88); 
-    color: white; border: none; border-radius: 15px; cursor: pointer; 
-    font-weight: bold; font-size: 1.1rem; margin-top: 10px;
-  }
+  #login-box { background: white; padding: 40px; border-radius: 30px; width: 320px; text-align: center; box-shadow: 0 25px 50px rgba(0,0,0,0.15); }
+  input { width: 90%; padding: 12px; margin: 12px 0; border: 1px solid #eee; border-radius: 15px; background: #fafafa; font-size: 1rem; }
+  .btn-submit { width: 100%; padding: 14px; background: linear-gradient(to right, #ff9a8b, #ff6a88); color: white; border: none; border-radius: 15px; cursor: pointer; font-weight: bold; font-size: 1.1rem; margin-top: 10px; }
   .btn-cancel { margin-top: 15px; color: #999; cursor: pointer; font-size: 14px; }
   
   #msg { color: #ff5252; font-size: 13px; margin-top: 8px; height: 18px; }
@@ -180,10 +104,10 @@
 <div id="login-overlay">
   <div id="login-box">
     <h3 id="login-title" style="margin-top:0">🐎 身份驗證</h3>
-    <div id="acc-container">
+    <div id="acc-wrapper">
       <input type="text" id="acc" placeholder="輸入帳號">
     </div>
-    <input type="password" id="pwd" placeholder="輸入密碼/驗證碼">
+    <input type="password" id="pwd" placeholder="輸入密碼">
     <div id="msg"></div>
     <div id="loader" class="loading">✨ 正在快馬加鞭驗證中...</div>
     <button class="btn-submit" onclick="doVerify()">登入</button>
@@ -225,6 +149,7 @@
 
   function renderClasses() {
     const container = document.getElementById('grade-container');
+    container.innerHTML = "";
     const grades = [
       {title: "🌸 一年級", icon: "🌸", class: "grade-1"},
       {title: "🌷 二年級", icon: "🌷", class: "grade-2"},
@@ -237,27 +162,21 @@
     grades.forEach((g, index) => {
       const section = document.createElement('div');
       section.className = `grade-section ${g.class}`;
-      
       const title = document.createElement('div');
       title.className = 'grade-title';
       title.innerHTML = g.title;
       section.appendChild(title);
-
       const grid = document.createElement('div');
       grid.className = 'class-grid';
-
       const gradeNum = (index + 1).toString();
       const filtered = classes.filter(c => c.name.startsWith(gradeNum));
-
       filtered.forEach(c => {
         const btn = document.createElement('div');
         btn.className = 'btn-link';
         btn.innerText = c.name;
-        // 點擊班級時，傳入班級名稱作為目標識別
-        btn.onclick = () => openLogin(c.url, c.name);
+        btn.onclick = () => openLogin(c.url, 'class', c.name);
         grid.appendChild(btn);
       });
-
       section.appendChild(grid);
       container.appendChild(section);
     });
@@ -276,27 +195,30 @@
     document.getElementById('main-links').classList.remove('hidden');
   }
 
-  function openLogin(url, t){
+  // 修改後的開啟登入視窗函式
+  function openLogin(url, t, className = ""){
     currentUrl = url;
     target = t;
-    const accContainer = document.getElementById('acc-container');
+    const accWrapper = document.getElementById('acc-wrapper');
     const pwdInput = document.getElementById('pwd');
-    const title = document.getElementById('login-title');
+    const loginTitle = document.getElementById('login-title');
+    const msg = document.getElementById('msg');
     
     document.getElementById('login-overlay').style.display = 'flex';
-    document.getElementById('msg').innerText = "";
     document.getElementById('acc').value = "";
     document.getElementById('pwd').value = "";
+    msg.innerText = "";
 
-    // 判斷是否為班級點擊 (非 admin)
-    if(t !== 'admin'){
-      accContainer.classList.add('hidden'); // 隱藏帳號輸入框
-      pwdInput.placeholder = "請輸入驗證碼";
-      title.innerText = "🐎 " + t + " 班級登入";
+    if(t === 'class'){
+      // 班級填報模式：隱藏帳號，修改提示字
+      accWrapper.style.display = 'none';
+      pwdInput.placeholder = "輸入班級驗證碼";
+      loginTitle.innerText = `🐎 ${className} 登入`;
     } else {
-      accContainer.classList.remove('hidden'); // 顯示帳號輸入框
+      // 管理者模式：顯示帳號，恢復原狀
+      accWrapper.style.display = 'block';
       pwdInput.placeholder = "輸入密碼";
-      title.innerText = "🐎 管理員驗證";
+      loginTitle.innerText = "🐎 身份驗證";
     }
   }
 
@@ -305,16 +227,14 @@
   }
 
   async function doVerify(){
-    const accField = document.getElementById('acc');
+    const user = document.getElementById('acc').value;
     const pass = document.getElementById('pwd').value;
     const msg = document.getElementById('msg');
     const loader = document.getElementById('loader');
 
-    // 如果是班級模式，自動將帳號設為班級名稱 (target)，如果是管理員則取輸入值
-    const user = (target !== 'admin') ? target : accField.value;
-
-    if(!user || !pass){
-      msg.innerText = (target !== 'admin') ? "請輸入驗證碼" : "請完整輸入帳號密碼";
+    // 驗證邏輯：管理者需填兩項，班級只需填密碼(驗證碼)
+    if((target === 'admin' && (!user || !pass)) || (target === 'class' && !pass)){
+      msg.innerText = "請輸入完整資訊";
       return;
     }
 
@@ -322,18 +242,18 @@
     loader.style.display = "block";
 
     try{
-      // target 參數維持傳遞原始的 target 值，後端可根據此值判斷權限
-      const response = await fetch(`${GAS_URL}?user=${encodeURIComponent(user)}&pass=${encodeURIComponent(pass)}&target=${encodeURIComponent(target)}`);
+      // 將 user 和 pass 傳送到後端
+      const fetchUrl = `${GAS_URL}?user=${encodeURIComponent(user)}&pass=${encodeURIComponent(pass)}&target=${encodeURIComponent(target)}`;
+      const response = await fetch(fetchUrl);
       const data = await response.json();
       loader.style.display = "none";
 
-      if(data.ok===true){
-        window.open(currentUrl,'_blank');
+      if(data.ok === true){
+        window.open(currentUrl, '_blank');
         closeLogin();
-      }else{
-        msg.innerText = data.msg ? data.msg : (target !== 'admin' ? "驗證碼錯誤" : "帳號或密碼錯誤");
+      } else {
+        msg.innerText = data.msg || "驗證失敗";
       }
-
     }catch(e){
       loader.style.display = "none";
       msg.innerText = "連線發生錯誤";
