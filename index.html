@@ -32,16 +32,39 @@
     -webkit-backdrop-filter: blur(15px); border-radius: 40px;
     padding: 40px; box-shadow: 0 20px 40px rgba(0,0,0,0.05);
     border: 1px solid rgba(255,255,255,0.4); z-index: 1;
+    margin-bottom: 50px;
   }
 
   h2, h3 { color: var(--primary-gold); text-align: center; margin-bottom: 30px; display: flex; justify-content: center; align-items: center; gap: 10px; }
 
-  .link-list { display: flex; gap: 20px; justify-content: center; margin-bottom: 20px; }
+  .link-list { display: flex; gap: 20px; justify-content: center; margin-bottom: 30px; }
+
+  /* 公告欄樣式 */
+  .announcement-box {
+    background: rgba(255, 255, 255, 0.5);
+    border: 1px dashed var(--primary-gold);
+    border-radius: 20px;
+    padding: 20px;
+    margin-top: 10px;
+    position: relative;
+  }
+  .ann-title {
+    color: var(--primary-gold);
+    font-weight: bold;
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 1.1rem;
+  }
+  #ann-content {
+    line-height: 1.6;
+    color: #6d4c41;
+    white-space: pre-wrap; /* 保留換行 */
+  }
 
   .class-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 15px; margin-top: 10px; }
-
   .grade-section { margin-top: 30px; }
-
   .grade-title { text-align: center; font-weight: bold; font-size: 1.1rem; margin-bottom: 15px; display: flex; justify-content: center; align-items: center; gap: 8px; }
 
   .btn-link {
@@ -58,10 +81,8 @@
   .grade-6 .btn-link { background: #ffebd4; }
 
   .btn-link:hover { transform: translateY(-5px) scale(1.03); box-shadow: 0 12px 20px rgba(0,0,0,0.1); filter: brightness(0.95); }
-
   .btn-back { margin: 40px auto 0; width: 120px; font-size: 0.9rem; color: #888; background: none; box-shadow: none; text-decoration: underline; }
 
-  /* 登入彈窗 */
   #login-overlay {
     display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
     background: rgba(0,0,0,0.3); backdrop-filter: blur(8px);
@@ -79,6 +100,7 @@
   @media (max-width: 600px) {
     .class-grid { grid-template-columns: repeat(2, 1fr); }
     .container { padding: 20px; width: 95%; }
+    .link-list { flex-direction: column; gap: 10px; }
   }
 </style>
 </head>
@@ -91,6 +113,11 @@
       <div class="btn-link" onclick="openLogin('https://docs.google.com/spreadsheets/d/1HA14Y11V4vpkQ8g7W3ecV6VyKJaxWzDD4Nah4z8IJOs/edit?usp=drive_link','admin')">資料清除</div>
       <div class="btn-link" onclick="openLogin('https://docs.google.com/spreadsheets/d/1DuMqFM4zSgPh6ZMOgpp36ra1Ya_slmgmp3x6VrmUNiQ/edit?usp=drive_link','admin')">填報設定</div>
       <div class="btn-link" onclick="showClassPage()">班級填報</div>
+    </div>
+
+    <div class="announcement-box">
+      <div class="ann-title">📢 系統公告</div>
+      <div id="ann-content">正在讀取公告...</div>
     </div>
   </div>
 
@@ -147,6 +174,21 @@
     {name:"604", url:"https://docs.google.com/spreadsheets/d/1tq1Q_B3DvFVG739efFqt30nVq26KIJwMOfjzS6FeN2g/edit?usp=drive_link"}
   ];
 
+  // 頁面載入後自動獲取公告
+  window.onload = function() {
+    fetchAnnouncement();
+  };
+
+  async function fetchAnnouncement() {
+    try {
+      const response = await fetch(`${GAS_URL}?action=getAnn`);
+      const data = await response.json();
+      document.getElementById('ann-content').innerText = data.content;
+    } catch (e) {
+      document.getElementById('ann-content').innerText = "公告讀取失敗。";
+    }
+  }
+
   function renderClasses() {
     const container = document.getElementById('grade-container');
     container.innerHTML = "";
@@ -195,7 +237,6 @@
     document.getElementById('main-links').classList.remove('hidden');
   }
 
-  // 修改後的開啟登入視窗函式
   function openLogin(url, t, className = ""){
     currentUrl = url;
     target = t;
@@ -210,12 +251,10 @@
     msg.innerText = "";
 
     if(t === 'class'){
-      // 班級填報模式：隱藏帳號，修改提示字
       accWrapper.style.display = 'none';
       pwdInput.placeholder = "輸入班級驗證碼";
       loginTitle.innerText = `🐎 ${className} 登入`;
     } else {
-      // 管理者模式：顯示帳號，恢復原狀
       accWrapper.style.display = 'block';
       pwdInput.placeholder = "輸入密碼";
       loginTitle.innerText = "🐎 身份驗證";
@@ -232,7 +271,6 @@
     const msg = document.getElementById('msg');
     const loader = document.getElementById('loader');
 
-    // 驗證邏輯：管理者需填兩項，班級只需填密碼(驗證碼)
     if((target === 'admin' && (!user || !pass)) || (target === 'class' && !pass)){
       msg.innerText = "請輸入完整資訊";
       return;
@@ -242,7 +280,6 @@
     loader.style.display = "block";
 
     try{
-      // 將 user 和 pass 傳送到後端
       const fetchUrl = `${GAS_URL}?user=${encodeURIComponent(user)}&pass=${encodeURIComponent(pass)}&target=${encodeURIComponent(target)}`;
       const response = await fetch(fetchUrl);
       const data = await response.json();
